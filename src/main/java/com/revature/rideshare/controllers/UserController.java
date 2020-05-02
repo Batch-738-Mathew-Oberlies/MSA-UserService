@@ -61,21 +61,23 @@ public class UserController {
      * @param isDriver represents if the user is a driver or rider.
      * @param username represents the user's username.
      * @param location represents the batch's location.
+     * @param isActive represents the active status of a driver
      * @return A list of all the users, users by is-driver, user by username and users by is-driver and location.
      */
-    @ApiOperation(value="Returns all users", tags= {"User"}, notes="Can also filter by is-driver, location and username")
+    @ApiOperation(value = "Returns all users", tags = {"User"}, notes = "Can also filter by is-driver, location and username")
     @GetMapping
-    public List<User> getUsers(@RequestParam(name="is-driver",required=false)Boolean isDriver,
-                               @RequestParam(name="username",required=false)String username,
-                               @RequestParam(name="location", required=false)String location) {
-
-        if (isDriver != null && location != null) {
-            return userService.getUserByRoleAndLocation(isDriver.booleanValue(), location);
-        } else if (isDriver != null) {
-            return userService.getUserByRole(isDriver.booleanValue());
-        } else if (username != null) {
+    public List<User> getUsers(@RequestParam(name = "is-driver", required = false) Boolean isDriver,
+                               @RequestParam(name = "username", required = false) String username,
+                               @RequestParam(name = "location", required = false) String location,
+                               @RequestParam(name = "is-active", required = false) Boolean isActive) {
+        if ((isActive != null && isDriver != null) && (isActive && isDriver))
+            return userService.getActiveDrivers();
+        if (isDriver != null && location != null)
+            return userService.getUserByRoleAndLocation(isDriver, location);
+        if (isDriver != null)
+            return userService.getUserByRole(isDriver);
+        if (username != null)
             return userService.getUserByUsername(username);
-        }
 
         return userService.getUsers();
     }
