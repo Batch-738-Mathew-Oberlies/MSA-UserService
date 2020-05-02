@@ -1,14 +1,17 @@
 package com.revature.rideshare.services;
 
-import java.io.IOException;
+import com.revature.rideshare.models.User;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
 
-import com.google.maps.errors.ApiException;
-import com.revature.rideshare.models.User;
-
+@FeignClient(name = "distance-service", url = "http://distance-service:8080")
 public interface DistanceService {
-    public List<User> distanceMatrix (String[] origins, String[] destinations) throws ApiException, InterruptedException, IOException ;
+	@GetMapping("/?api-key=true")
+	String getGoogleMAPKey();
 
-    // Place key googleMapAPIKey & value apiKey (to be shared on slack) into Environment Vars.
-    public String getGoogleMAPKey();
+	@GetMapping("/{address}?driver=true")
+	List<User> distanceMatrix(@PathVariable String address);
 }
