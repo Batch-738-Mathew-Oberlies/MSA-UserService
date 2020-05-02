@@ -15,3 +15,7 @@ buildNumber.properties
 *.iml
 HELP.md
 mvnw*
+.classpath
+.factorypath
+.project
+.settings
