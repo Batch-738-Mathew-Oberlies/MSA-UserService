@@ -1,12 +1,11 @@
 package com.revature.rideshare.repositories;
 
-import java.util.List;
-
+import com.revature.rideshare.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.revature.rideshare.models.User;
+import java.util.List;
 
 /**
  * UserRepository which extends the JpaRepository.
@@ -17,13 +16,14 @@ import com.revature.rideshare.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+
     /**
-     * Custom query that uses the @Query annotation to select a user by isDriver.
+     * Custom query that uses the @Query annotation to select a user by driver.
      *
      * @param isDriver represents if a user is a driver or rider.
      * @return Check {@link com.revature.rideshare.services.impl.UserServiceImpl}
      */
-    @Query("select u from User u where u.isDriver = ?1")
+    @Query("select u from User u where u.driver = ?1")
     public List<User> getUserByRole(boolean isDriver);
 
     /**
@@ -36,15 +36,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     public List<User> getUserByUsername(String username);
 
     /**
-     * Custom query that uses the @Query annotation to select a user by isDriver and location.
+     * Custom query that uses the @Query annotation to select a user by driver and location.
      *
      * @param isDriver represents if a user is a driver or rider.
      * @param location represents the batch's location.
      * @return Check {@link com.revature.rideshare.services.impl.UserServiceImpl}
      */
-    @Query("select u from User u where u.isDriver = ?1 and u.batch.batchLocation = ?2")
+
+    @Query("select u from User u where u.driver = ?1 and u.batch.batchLocation = ?2")
     public List<User> getUserByRoleAndLocation(boolean isDriver, String location);
 
-    @Query("select u from User u where u.isDriver = true and u.isActive = true and u.isAcceptingRides = true")
+    @Query("select u from User u where u.driver = true and u.active = true and u.acceptingRides = true")
     public List<User> getActiveDrivers();
 }

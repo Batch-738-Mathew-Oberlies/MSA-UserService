@@ -1,6 +1,8 @@
 package com.revature.rideshare.utilities;
 
-import com.revature.rideshare.models.*;
+import com.revature.rideshare.models.Address;
+import com.revature.rideshare.models.Batch;
+import com.revature.rideshare.models.User;
 
 public class MockObjects {
     public static User getAdonis() {
@@ -24,8 +26,8 @@ public class MockObjects {
         address.setStreet("123 Fake Street");
         address.setZip("12123");
         address.setId(5);
-        adonis.setHAddress(address);
-        adonis.setWAddress(address);
+        adonis.setHomeAddress(address);
+        adonis.setWorkAddress(address);
         return adonis;
     }
 }
