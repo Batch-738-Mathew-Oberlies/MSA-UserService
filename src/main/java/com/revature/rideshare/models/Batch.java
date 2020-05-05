@@ -15,7 +15,6 @@ import java.io.Serializable;
  * Batch class that represents a user's batch. All batches have a batch number and a location.
  *
  * @author Adonis Cabreja
- *
  */
 
 @Component
@@ -25,20 +24,20 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 public class Batch implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "batch_number")
-    private int batchNumber;
+	@Id
+	@Column(name = "batch_number")
+	private int batchNumber;
 
-    @Column(name = "batch_location")
-    private String batchLocation;
+	@Column(name = "batch_location")
+	private String batchLocation;
 
-    public Batch(BatchDTO batchDTO) {
-        super();
-        if (batchDTO != null) {
-            this.batchNumber = batchDTO.getBatchNumber();
-            this.batchLocation = batchDTO.getBatchLocation();
-        }
-    }
+	public Batch(BatchDTO batchDTO) {
+		super();
+		if (batchDTO != null) {
+			this.batchNumber = batchDTO.getBatchNumber();
+			this.batchLocation = batchDTO.getBatchLocation();
+		}
+	}
 }
